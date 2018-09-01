@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <sys/syscall.h>
+#include <errno.h>
 
 int main_setxattr(int argc, char **argv)
 {

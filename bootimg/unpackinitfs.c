@@ -4,7 +4,6 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/utime.h>
 #include <errno.h>
 #include <time.h>
 
@@ -12,6 +11,7 @@
 #include <windows.h>
 #include <fcntl.h>
 #include <io.h>
+#include <sys/utime.h>
 #define mkdir(p,m) mkdir_replacement(p,m)
 #undef utime
 #define utime(f,t) utime_replacement(f,t)

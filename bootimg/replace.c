@@ -3,11 +3,12 @@
 #include <stdint.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/utime.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #ifndef WIN32
 #include <utime.h>
+#else
+#include <sys/utime.h>
 #endif
 
 int main_replace(int argc, char** argv)

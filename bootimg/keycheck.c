@@ -8,7 +8,9 @@
 #include <sys/poll.h>
 #include <linux/input.h>
 #include <errno.h>
-
+#ifndef WIN32
+    #include <time.h>
+#endif
 static struct pollfd *ufds;
 static char **device_names;
 static int nfds;
