@@ -42,16 +42,22 @@ HEADERS += \
     magiskpolicy/windows-mmap.h
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../libsepol/release/ -llibsepol -luser32
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libsepol/debug/ -llibsepol -luser32
-else:unix:!macx: LIBS += -L/usr/local/lib/ -lsepol
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../libsepol/Win/release/ -llibsepol -luser32
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libsepol/Win/debug/ -llibsepol -luser32
+else:unix:!macx:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libsepol/Linux/debug/ -llibsepol
+else:unix:!macx:CONFIG(release, debug|release): LIBS += -L$$PWD/../libsepol/Linux/release/ -llibsepol
+
+win32:CONFIG(release, debug|release): DESTDIR = $$PWD/../Win/release
+else:win32:CONFIG(debug, debug|release): DESTDIR = $$PWD/../Win/debug
+else:unix:!macx:CONFIG(debug, debug|release): DESTDIR = $$PWD/../Linux/debug
+else:unix:!macx:CONFIG(release, debug|release): DESTDIR = $$PWD/../Linux/release
 
 INCLUDEPATH += $$PWD/../libsepol
 DEPENDPATH += $$PWD/../libsepol
 
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/release/libsepol.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/debug/libsepol.a
-else:win32:!win32-g++:CONFIG(release, debug|release): DESTDIR = $$PWD/../Win/release PRE_TARGETDEPS += $$PWD/../libsepol/release/libsepol.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += DESTDIR = $$PWD/../Win/debug $$PWD/../libsepol/debug/libsepol.lib
-else:unix:!macx:CONFIG(debug, debug|release):DESTDIR = $$PWD/../Linux/debug
-else:unix:!macx:CONFIG(release, debug|release):DESTDIR = $$PWD/../Linux/release
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Win/release/liblibsepol.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Win/debug/liblibsepol.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Win/release/libsepol.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Win/debug/libsepol.lib
+else:unix:!macx:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Linux/debug/liblibsepol.a
+else:unix:!macx:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../libsepol/Linux/release/liblibsepol.a

@@ -538,8 +538,7 @@ int check_assertion(policydb_t *p, avrule_t *avrule)
 	return rc;
 }
 
-int check_assertions(sepol_handle_t * handle, policydb_t * p,
-		     avrule_t * avrules)
+int check_assertions(sepol_handle_t * handle, policydb_t * p, avrule_t * avrules)
 {
 	int rc;
 	avrule_t *a;

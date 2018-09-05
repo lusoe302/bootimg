@@ -79,10 +79,17 @@ HEADERS += \
     "private.h" \
     "user_internal.h"
 
-INCLUDEPATH += $$PWD/../include
-DEPENDPATH += $$PWD/../include
+win32 {
+ INCLUDEPATH += $$PWD/../include
+ DEPENDPATH += $$PWD/../include
+}
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+win32:CONFIG(release, debug|release): DESTDIR = $$PWD/Win/release
+else:win32:CONFIG(debug, debug|release): DESTDIR = $$PWD/Win/debug
+else:unix:!macx:CONFIG(debug, debug|release): DESTDIR = $$PWD/Linux/debug
+else:unix:!macx:CONFIG(release, debug|release): DESTDIR = $$PWD/Linux/release
